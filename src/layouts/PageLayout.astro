@@ -1,0 +1,69 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/widgets/Header.astro';
+import Footer from '~/components/widgets/Footer.astro';
+
+import type { MetaData } from '~/types';
+import { getBlogPermalink, getPermalink } from '~/utils/permalinks';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const headerData = {
+ links: [{
+    text: 'Home',
+    href: '/',
+  }, {
+    text: 'Jugend',
+    href: getPermalink('/jugend'),
+  }, {
+    text: '1. Mannschaft',
+    links: [{
+      text: 'Über die 1. Mannschaft',
+      href: getPermalink('/erstemannschaft'),
+    }, {
+      text: 'Das Team',
+      href: getPermalink('/erstemannschaft/team'),
+    }, {
+      text: 'Ligabetrieb',
+      href: getPermalink('/erstemannschaft/ligabetrieb'),
+    }],
+  }, {
+    text: 'Verein',
+    href: getPermalink('/verein'),
+  }, {
+    text: 'News',
+    href: getBlogPermalink(),
+  }, {
+    text: 'Kontakt',
+    href: getPermalink('/kontakt'),
+  }, {
+    text: 'Partner',
+    href: getPermalink('/partner'),
+  }],
+};
+
+
+const footerData = {
+  links: [
+    { text: 'Impressum', href: getPermalink('/impressum') },
+    { text: 'Datenschutz', href: getPermalink('/datenschutz') },
+    { text: 'Kontakt', href: getPermalink('/kontakt') },
+  ],
+};
+
+const { metadata } = Astro.props;
+---
+
+<Layout metadata={metadata}>
+  <slot name="header">
+    <Header {...headerData} isSticky showRssFeed showToggleTheme />
+  </slot>
+  <main>
+    <slot />
+  </main>
+  <slot name="footer">
+    <Footer {...footerData} />
+  </slot>
+</Layout>

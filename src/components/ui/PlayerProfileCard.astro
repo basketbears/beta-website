@@ -1,0 +1,90 @@
+---
+import { people } from '~/people';
+import Image from '../common/Image.astro';
+
+interface Props {
+  playerId: string;
+  background?: string;
+  alt?: string;
+}
+
+function slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')       // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')   // Remove all non-word chars
+    .replace(/--+/g, '-');      // Replace multiple - with single -
+}
+
+const { playerId, background, alt } = Astro.props as Props;
+const player = people[playerId];
+const modalId = slugify(`${playerId}-${player.playerInfo.number}`);
+---
+<!-- Player Card -->
+<div
+  id={`${modalId}-card`}
+  class="player-card max-w-xs bg-white rounded-lg shadow-md overflow-hidden"
+  style={background ? `--card-background: ${background}` : undefined}
+>
+  <a href="#">
+    <Image width="204" height="255" src={player.playerInfo.cardImage} alt={player.displayName} class="w-full object-cover" />
+  </a>
+  <div class="flex justify-between items-center px-4 py-2" style="background-color: var(--card-background, #111171);">
+    <span class="text-white font-bold">{player.firstName}</span>
+    <span class="text-white font-bold">{`#${player.playerInfo.number}`}</span>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  id={`${modalId}-modal`}
+  class="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 hidden z-50"
+>
+  <div class="modal-content bg-white rounded-lg overflow-hidden shadow-lg relative max-w-full max-h-full">
+    <button
+      class="modal-close absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold focus:outline-none"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+    <div class="p-4 flex flex-col items-center">
+      <Image
+        src={player.playerInfo.cardImage}
+        alt={player.displayName}
+        class="w-full max-w-md object-cover"
+        loading="lazy"
+      />
+      <div class="mt-4 text-center">
+        <span class="text-2xl font-bold">{player.firstName} {player.lastName}</span>
+        <span class="text-xl font-bold block">{`#${player.playerInfo.number}`}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ modalId }}>
+  const modal = document.getElementById(modalId + '-modal');
+  const modalContent = modal.querySelector('.modal-content');
+
+  const toggleModal = () => {
+    modal.classList.toggle('hidden');
+    document.body.classList.toggle('overflow-hidden');
+  }
+
+  const card = document.getElementById(modalId + '-card');
+  card.addEventListener('click', function(event) {
+    event.preventDefault();
+    toggleModal()
+  });
+
+  const closeModalButton = modal.querySelector('.modal-close');
+  closeModalButton.addEventListener('click', toggleModal);
+
+  modal.addEventListener('click', function(event) {
+    if (!modalContent.contains(event.target)) {
+      toggleModal();
+    }
+  });
+</script>
