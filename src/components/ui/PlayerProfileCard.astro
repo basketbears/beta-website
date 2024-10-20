@@ -29,7 +29,7 @@ const modalId = slugify(`${playerId}-${player.playerInfo.number}`);
   style={background ? `--card-background: ${background}` : undefined}
 >
   <a href="#">
-    <Image width="204" height="255" src={player.playerInfo.cardImage} alt={player.displayName} class="w-full object-cover" />
+    <Image height="512" src={player.playerInfo.cardImage} alt={player.displayName} class="w-full object-cover" />
   </a>
   <div class="flex justify-between items-center px-4 py-2" style="background-color: var(--card-background, #111171);">
     <span class="text-white font-bold">{player.firstName}</span>
@@ -51,6 +51,7 @@ const modalId = slugify(`${playerId}-${player.playerInfo.number}`);
     </button>
     <div class="p-4 flex flex-col items-center">
       <Image
+        height="1280px"
         src={player.playerInfo.cardImage}
         alt={player.displayName}
         class="w-full max-w-md object-cover"
