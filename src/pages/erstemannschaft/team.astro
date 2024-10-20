@@ -8,8 +8,8 @@ const metadata = {
 
 const backgroundColor = 'linear-gradient(99deg, #b2bbcf 0%, #ebeeee 50%, #b2bbcf 100%)'
 
-const trainerColumns = 'w-1/3 sm:w-full lg:w-1/2 px-2';
-const playerColumns = 'w-1/2 md:w-1/4 md:w-1/3 lg:w-1/4 px-2';
+const trainerColumns = 'w-1/3 sm:w-full lg:w-1/2 p-3';
+const playerColumns = 'w-1/2 sm:w-1/4 md:w-1/3 lg:w-1/4 p-3';
 
 const ersteMannschaft = [
   'sylvester0-0', 'richard0-0', 'ahmed0-0', 'jarne0-0', 'yannik0-0',
@@ -19,9 +19,9 @@ const ersteMannschaft = [
 ---
 
 <Layout metadata={metadata}>
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap mx-auto max-w-7xl">
     <!-- Trainer Section -->
-    <div class="w-full sm:w-1/3 md:w-1/4 lg:w-1/3 px-4">
+    <div class="w-full sm:w-1/3 md:w-1/4 lg:w-1/3">
       <div class="flex flex-wrap">
         <div class="w-full">
           <p class="text-3xl font-bold text-center whitespace-nowrap">Spieler-Trainer</p>
@@ -39,7 +39,7 @@ const ersteMannschaft = [
     </div>
   
     <!-- Players Section -->
-    <div class="w-full sm:w-2/3 md:w-3/4 lg:w-2/3 px-4">
+    <div class="w-full sm:w-2/3 md:w-3/4 lg:w-2/3">
       <div class="flex flex-wrap">
         <div class="w-full">
           <p class="text-3xl font-bold text-center">Spieler</p>
