@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: '~/layouts/PostLayout.astro'
 date: 2021-09-28
 title: KickOff Turnier in Köln
 summary: Basket Bears melden sich aus langer Coronapause zurück!
